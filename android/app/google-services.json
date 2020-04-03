@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "956701527644",
+    "firebase_url": "https://textviaimage.firebaseio.com",
+    "project_id": "textviaimage",
+    "storage_bucket": "textviaimage.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:956701527644:android:7d49eb770f3d1042e52099",
+        "android_client_info": {
+          "package_name": "com.textrecognition"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "956701527644-s91an4cte8j22uah4ju2budm0muafr37.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZ4_xX1G6fsdrozW8100Exjxw7EmXXXrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "956701527644-s91an4cte8j22uah4ju2budm0muafr37.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
