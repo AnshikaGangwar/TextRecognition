@@ -17,39 +17,13 @@ import {
   Icon,
   Title,
 } from 'native-base';
+//import ShareAction from './ShareAction';
 
 class MemoView extends Component {
-  static navigationOptions = {
-    header: null,
-  };
-  state = {
-    msg: '',
-  };
-  onShare = async () => {
-    //console.log({ memo });
-    const data = this.state.msg;
-    //alert({ data });
-    try {
-      const result = await Share.share({
-        message: { data },
-      });
-      if (result.action === Share.sharedAction) {
-        if (result.activityType) {
-          // shared with activity type of result.activityType
-        } else {
-          console.log('shared');
-        }
-      } else if (result.action === Share.dismissedAction) {
-        // dismissed
-        console.log('dismissed');
-      }
-    } catch (error) {
-      alert(error.message);
-    }
-  };
   render() {
     const { memoStore } = this.props.store;
     const index = this.props.navigation.getParam('otherParam', 1);
+    const result2 = memoStore.memoArray[index].content.slice();
     return (
       <Container style={styles.container}>
         <Content>
@@ -63,14 +37,7 @@ class MemoView extends Component {
               <Title style={styles.headerText}>{memoStore.memoArray[index].name}</Title>
             </Body>
             <Right>
-              <Button
-                transparent
-                onPress={() => {
-                  const memo = memoStore.memoArray[index].content;
-                  this.setState({ msg: memo });
-                  this.onShare();
-                }}
-              >
+              <Button transparent onPress={this.contentHandler.bind(this, result2)}>
                 <Icon type="MaterialIcons" name="content-copy" style={{ color: 'black' }} size={35} />
               </Button>
             </Right>
@@ -91,6 +58,15 @@ class MemoView extends Component {
       </Content>
     );
   };
+  contentHandler(result) {
+    Share.share({
+      message: JSON.stringify(result),
+    }).then(({ action, activityType }) => {
+      if (action === Share.sharedAction) console.log('Share was successful');
+      else console.log('Share was dismissed');
+    });
+  }
+  // () => this.props.navigation.navigate('ShareAction',{result:result2})
 }
 export default inject('store')(observer(MemoView));
 

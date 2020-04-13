@@ -49,7 +49,7 @@ class Welcome extends Component {
       return (
         <Container style={styles.container}>
           <Content>
-            <Header style={{ backgroundColor: 'white' }} androidStatusBarColor="white">
+            <Header style={{ backgroundColor: 'black' }} androidStatusBarColor="black">
               <Body>
                 <Title style={styles.headerText}>TEXT RECOGNITION</Title>
               </Body>
@@ -99,41 +99,54 @@ class Welcome extends Component {
       return (
         <Container style={styles.container}>
           <Content>
-            <Header style={{ backgroundColor: 'white' }} androidStatusBarColor="grey">
+            <Header style={{ backgroundColor: 'black' }} androidStatusBarColor="black">
               <Body>
                 <Title style={styles.headerText}>Text Recognition</Title>
               </Body>
             </Header>
             <View style={{ flexDirection: 'row', flex: 1, alignContent: 'center' }}>
-              <TouchableOpacity onPress={() => this.props.navigation.navigate('Camera')}>
-                <Icon
-                  type="Entypo"
-                  name="camera"
-                  style={styles.iconImage}
-                  //onPress={() => this.props.navigation.navigate('Camera')}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity onPress={this.handleViewListChange}>
-                <Icon
-                  type="Entypo"
-                  name="documents"
-                  style={styles.iconImage}
-                  //onPress={() => this.props.navigation.navigate('Camera')}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => memoStore.clear()}>
-                <Icon type="AntDesign" name="delete" style={styles.iconImage} />
-              </TouchableOpacity>
+              <View>
+                <TouchableOpacity style={styles.iconView} onPress={() => this.props.navigation.navigate('Camera')}>
+                  <Icon
+                    type="Entypo"
+                    name="camera"
+                    style={styles.iconImage}
+                    //onPress={() => this.props.navigation.navigate('Camera')}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View style={{}}>
+                <TouchableOpacity style={styles.iconView} onPress={this.handleViewListChange}>
+                  <Icon
+                    type="Entypo"
+                    name="documents"
+                    style={styles.iconImage}
+                    //onPress={() => this.props.navigation.navigate('Camera')}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View style={{}}>
+                <TouchableOpacity style={styles.iconView} onPress={() => memoStore.clear()}>
+                  <Icon type="AntDesign" name="delete" style={styles.iconImage} />
+                </TouchableOpacity>
+              </View>
             </View>
             <View>
               <Image
-                source={require('../../../images/text-message-chat.jpg')}
+                source={require('../../../images/textimage2new.jpg')}
                 style={styles.textImage}
                 resizeMode="contain"
               />
             </View>
             <View style={{ alignItems: 'center' }}>
-              <Text style={{ ...styles.headerText, alignContent: 'center', marginTop: 90, fontSize: 40 }}>
+              <Text
+                style={{
+                  ...styles.headerText,
+                  alignContent: 'center',
+                  marginTop: 90,
+                  fontSize: 40,
+                }}
+              >
                 Text From Image
               </Text>
             </View>
@@ -179,16 +192,17 @@ export default inject('store')(observer(Welcome));
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: 'black',
   },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
+    color: '#9b009b',
   },
   instructions: {
     textAlign: 'center',
-    color: '#9b009b',
+    color: '#800040',
     marginBottom: 5,
   },
   buttonsContainer: {
@@ -197,23 +211,36 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   iconImage: {
-    flex: 0,
-    fontSize: 40,
+    //flex: 0,
+    fontSize: 35,
     padding: 15,
     paddingHorizontal: 20,
     alignSelf: 'center',
-    margin: 20,
-    color: '#006fa4',
+    // margin: 20,
+    //color: '#006fa4',
+    color: '#800040',
   },
   headerText: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#006fa4',
+    //color: '#006fa4',
+    color: '#800040',
+    fontFamily: "LET'SEAT",
   },
   textImage: {
     height: 300,
     width: 352,
     marginHorizontal: 2,
     borderRadius: 4,
+    marginTop: 40,
+  },
+  iconView: {
+    backgroundColor: 'grey',
+    width: 110,
+    height: 60,
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 5,
+    opacity: 0.75,
   },
 });
