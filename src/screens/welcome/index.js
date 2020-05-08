@@ -55,7 +55,7 @@ class Welcome extends Component {
               </Body>
             </Header>
             <View style={{ flexDirection: 'row', flex: 1, alignContent: 'center' }}>
-              <TouchableOpacity onPress={() => this.props.navigation.navigate('Camera')}>
+              <TouchableOpacity style={styles.iconView} onPress={() => this.props.navigation.navigate('Camera')}>
                 <Icon
                   type="Entypo"
                   name="camera"
@@ -63,7 +63,7 @@ class Welcome extends Component {
                   //onPress={() => this.props.navigation.navigate('Camera')}
                 />
               </TouchableOpacity>
-              <TouchableOpacity onPress={this.handleViewListChange}>
+              <TouchableOpacity style={styles.iconView} onPress={this.handleViewListChange}>
                 <Icon
                   type="Entypo"
                   name="documents"
@@ -71,7 +71,7 @@ class Welcome extends Component {
                   //onPress={() => this.props.navigation.navigate('Camera')}
                 />
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => memoStore.clear()}>
+              <TouchableOpacity style={styles.iconView} onPress={() => memoStore.clear()}>
                 <Icon type="AntDesign" name="delete" style={styles.iconImage} />
               </TouchableOpacity>
             </View>
@@ -170,16 +170,16 @@ class Welcome extends Component {
           }
         >
           <Left>
-            <Button onPress={() => memoStore.overlayTrue(index)} style={{ color: '#006fa4' }} size={32}>
-              <Icon active type="FontAwesome5" name="pen-square" />
+            <Button onPress={() => memoStore.overlayTrue(index)} style={{ color: 'black' }} size={32}>
+              <Icon type="FontAwesome5" name="pen-square" />
             </Button>
           </Left>
           <Body>
             <Text style={styles.text}>{memo.name}</Text>
           </Body>
           <Right>
-            <Button onPress={() => memoStore.delete(index)} style={{ color: '#006fa4' }}>
-              <Icon active name="trash" />
+            <Button onPress={() => memoStore.delete(index)} style={{ color: 'black' }} size={32}>
+              <Icon name="trash" />
             </Button>
           </Right>
         </CardItem>

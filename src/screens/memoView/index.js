@@ -20,6 +20,9 @@ import {
 //import ShareAction from './ShareAction';
 
 class MemoView extends Component {
+  static navigationOptions = {
+    header: null,
+  };
   render() {
     const { memoStore } = this.props.store;
     const index = this.props.navigation.getParam('otherParam', 1);
@@ -33,16 +36,19 @@ class MemoView extends Component {
                 <Icon type="Ionicons" name="ios-arrow-back" style={{ color: 'black' }} size={35} />
               </Button>
             </Left>
-            <Body style={{ alignContent: 'center', marginLeft: 50 }}>
+            <Body style={{ alignContent: 'center', marginLeft: 50, marginRight: 10 }}>
               <Title style={styles.headerText}>{memoStore.memoArray[index].name}</Title>
             </Body>
             <Right>
               <Button transparent onPress={this.contentHandler.bind(this, result2)}>
-                <Icon type="MaterialIcons" name="content-copy" style={{ color: 'black' }} size={35} />
+                <Icon type="Entypo" name="share" style={{ color: 'black' }} size={35} />
+              </Button>
+              <Button transparent onPress={this.contentHandler.bind(this, result2)}>
+                <Icon type="Entypo" name="save" style={{ color: 'black' }} size={35} />
               </Button>
             </Right>
-            <Right />
-            <Left />
+            {/* <Right /> */}
+            {/* <Left /> */}
           </Header>
           <Text>{memoStore.memoArray.content}</Text>
           <List dataArray={memoStore.memoArray[index].content.slice()} renderRow={this.renderItem} />
