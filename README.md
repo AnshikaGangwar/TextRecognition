@@ -1,7 +1,7 @@
 # TextRecognition
 TextRecognition app
 
-##Tech Stack
+#Tech Stack
 1. React Native
 2. RNCamera
 3. RNTextDetector
