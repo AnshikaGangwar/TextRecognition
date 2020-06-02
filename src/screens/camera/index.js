@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, AsyncStorage, Alert } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import { observer, inject } from 'mobx-react';
 import { Slider } from 'react-native-elements';
@@ -78,6 +78,7 @@ class Camera extends Component {
     if (this.state.flashMode == RNCamera.Constants.FlashMode.off) {
       this.setState({ flashMode: RNCamera.Constants.FlashMode.torch });
     } else this.setState({ flashMode: RNCamera.Constants.FlashMode.off });
+    //this.props.navigation.navigate('Gallery');
   };
   takePicture = async () => {
     const { memoStore } = this.props.store;
@@ -92,7 +93,14 @@ class Camera extends Component {
       const { uri } = await this.camera.takePictureAsync(options);
       const visionResp = await RNTextDetector.detectFromUri(uri);
       this.props.store.memoStore.addItem(visionResp);
+      // const key = '@MyApp:key';
       console.log('visionResp', visionResp);
+      // try {
+      //   await AsyncStorage.setItem(key, this.props.store);
+      //   Alert.alert('saved', 'Saved Successfully');
+      // } catch (error) {
+      //   Alert.alert('Error', 'Error while saving');
+      // }
     } catch (e) {
       console.warn(e);
     }

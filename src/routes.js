@@ -4,7 +4,7 @@ import Welcome from './screens/welcome';
 import Camera from './screens/camera';
 import MemoView from './screens/memoView';
 import Gallery from './screens/galleryView';
-const MainStack = createStackNavigator({ Welcome, Camera, MemoView });
+const MainStack = createStackNavigator({ Welcome, Camera, MemoView, Gallery });
 
 const Routes = createAppContainer(MainStack);
 

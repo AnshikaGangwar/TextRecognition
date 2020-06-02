@@ -1,36 +1,69 @@
 import React from 'react';
-import { View, StyleSheet, Image, ScrollView, Dimensions } from 'react-native';
+import { View, Text, Image, Button, Alert, StyleSheet } from 'react-native';
+import { observer, inject } from 'mobx-react';
+import ImagePicker from 'react-native-image-picker';
+import RNTextDetector from 'react-native-text-detector';
 
-const Gallery = ({ captures = [] }) => (
-  <ScrollView horizontal={true} style={[styles.bottomToolbar, styles.galleryContainer]}>
-    {captures.map(({ uri }) => (
-      <View style={styles.galleryImageContainer} key={uri}>
-        <Image source={{ uri }} style={styles.galleryImage} />
+class Gallery extends React.Component {
+  state = {
+    photo: null,
+    uri: null,
+  };
+
+  handleChoosePhoto = () => {
+    const options = {
+      noData: true,
+    };
+    ImagePicker.launchImageLibrary(options, response => {
+      if (response.uri) {
+        this.setState({ photo: response });
+        this.setState({ uri: response.uri });
+      }
+    });
+  };
+
+  handleText = async () => {
+    const { memoStore } = this.props.store;
+    try {
+      memoStore.loaderTrue();
+      console.log('try', memoStore.loader);
+      const options = {
+        quality: 0.8,
+        base64: true,
+        skipProcessing: true,
+      };
+      const visionResp = await RNTextDetector.detectFromUri(this.state.uri);
+      console.log('visionResp');
+
+      this.props.store.memoStore.addItem(visionResp);
+    } catch (e) {
+      console.warn(e);
+    }
+    memoStore.loaderFalse();
+    console.log('try outside', memoStore.loader);
+  };
+  render() {
+    const { photo } = this.state;
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#c0c0c0' }}>
+        {photo && <Image source={{ uri: photo.uri }} style={{ width: 300, height: 300 }} />}
+        <View style={styles.btnChoosePhoto}>
+          <Button title="Choose Photo" onPress={this.handleChoosePhoto} color="#800040" />
+        </View>
+        <View style={styles.btnGetText}>
+          <Button title="GET TEXT" onPress={this.handleText} size={32} color="#800040" />
+        </View>
       </View>
-    ))}
-  </ScrollView>
-);
-
-const { width: winWidth, height: winHeight } = Dimensions.get('window');
+    );
+  }
+}
 const styles = StyleSheet.create({
-  bottomToolbar: {
-    width: winWidth,
-    position: 'absolute',
-    height: 100,
-    bottom: 0,
+  btnChoosePhoto: {
+    padding: 10,
   },
-  galleryContainer: {
-    bottom: 120,
-  },
-  galleryImageContainer: {
-    width: 75,
-    height: 75,
-    marginRight: 5,
-  },
-  galleryImage: {
-    width: 75,
-    height: 75,
+  btnGetText: {
+    padding: 10,
+    marginTop: 20,
   },
 });
-
-export default Gallery;
+export default inject('store')(observer(Gallery));

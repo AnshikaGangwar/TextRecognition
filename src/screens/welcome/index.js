@@ -71,8 +71,8 @@ class Welcome extends Component {
                   //onPress={() => this.props.navigation.navigate('Camera')}
                 />
               </TouchableOpacity>
-              <TouchableOpacity style={styles.iconView} onPress={() => memoStore.clear()}>
-                <Icon type="AntDesign" name="delete" style={styles.iconImage} />
+              <TouchableOpacity style={styles.iconView} onPress={() => this.props.navigation.navigate('Gallery')}>
+                <Icon type="Entypo" name="images" style={styles.iconImage} />
               </TouchableOpacity>
             </View>
             <List dataArray={toJS(memoStore.memoArray)} renderRow={this.renderItem} />
@@ -125,9 +125,9 @@ class Welcome extends Component {
                   />
                 </TouchableOpacity>
               </View>
-              <View style={{}}>
-                <TouchableOpacity style={styles.iconView} onPress={() => memoStore.clear()}>
-                  <Icon type="AntDesign" name="delete" style={styles.iconImage} />
+              <View>
+                <TouchableOpacity style={styles.iconView} onPress={() => this.props.navigation.navigate('Gallery')}>
+                  <Icon type="Entypo" name="images" style={styles.iconImage} />
                 </TouchableOpacity>
               </View>
             </View>
