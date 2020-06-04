@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, AsyncStorage, Alert } from 'react-native';
+import { StyleSheet, Text, View, Alert } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import { observer, inject } from 'mobx-react';
 import { Slider } from 'react-native-elements';
 import { Spinner, Button, Icon, Header, Left, Body, Title } from 'native-base';
+import AsyncStorage from '@react-native-community/async-storage';
 import RNTextDetector from 'react-native-text-detector';
 
 class Camera extends Component {
@@ -93,14 +94,23 @@ class Camera extends Component {
       const { uri } = await this.camera.takePictureAsync(options);
       const visionResp = await RNTextDetector.detectFromUri(uri);
       this.props.store.memoStore.addItem(visionResp);
-      // const key = '@MyApp:key';
+      // var date = new Date().getDate(); //Current Date
+      // var month = new Date().getMonth() + 1; //Current Month
+      // var year = new Date().getFullYear(); //Current Year
+      // var hours = new Date().getHours(); //Current Hours
+      // var min = new Date().getMinutes(); //Current Minutes
+      // var sec = new Date().getSeconds(); //Current Seconds
+      // const key = date + '/' + month + '/' + year + ' ' + hours + ':' + min + ':' + sec;
+      // Alert.alert('saved', key);
+      const key = '@MyText';
       console.log('visionResp', visionResp);
-      // try {
-      //   await AsyncStorage.setItem(key, this.props.store);
-      //   Alert.alert('saved', 'Saved Successfully');
-      // } catch (error) {
-      //   Alert.alert('Error', 'Error while saving');
-      // }
+      try {
+        AsyncStorage.clear();
+        await AsyncStorage.setItem(key, JSON.stringify(this.props.store.memoStore));
+        Alert.alert('saved', 'Saved Successfully');
+      } catch (error) {
+        Alert.alert('Error', error + 'Error while saving');
+      }
     } catch (e) {
       console.warn(e);
     }

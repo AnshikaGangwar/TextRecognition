@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity, Image } from 'react-native';
 import { observer, inject } from 'mobx-react';
 import { toJS } from 'mobx';
+import AsyncStorage from '@react-native-community/async-storage';
 import {
   Button,
   Content,
@@ -87,7 +88,20 @@ class Welcome extends Component {
                 <Item>
                   <Input placeholder="Title" onChangeText={this.handleChange} />
                 </Item>
-                <Button style={{ backgroundColor: '#006fa4' }} onPress={() => memoStore.editName(this.state.editName)}>
+                <Button
+                  style={{ backgroundColor: '#006fa4' }}
+                  onPress={async () => {
+                    memoStore.editName(this.state.editName);
+                    try {
+                      const key = '@MyText';
+                      AsyncStorage.clear();
+                      await AsyncStorage.setItem(key, JSON.stringify(this.props.store.memoStore));
+                      //Alert.alert('saved', 'Saved Successfully');
+                    } catch (error) {
+                      Alert.alert('Error', error + 'Error while saving');
+                    }
+                  }}
+                >
                   <Text>Ok</Text>
                 </Button>
               </Form>
@@ -178,7 +192,21 @@ class Welcome extends Component {
             <Text style={styles.text}>{memo.name}</Text>
           </Body>
           <Right>
-            <Button onPress={() => memoStore.delete(index)} style={{ color: 'black' }} size={32}>
+            <Button
+              onPress={async () => {
+                memoStore.delete(index);
+                try {
+                  const key = '@MyText';
+                  AsyncStorage.clear();
+                  await AsyncStorage.setItem(key, JSON.stringify(this.props.store.memoStore));
+                  //Alert.alert('saved', 'Saved Successfully');
+                } catch (error) {
+                  Alert.alert('Error', error + 'Error while saving');
+                }
+              }}
+              style={{ color: 'black' }}
+              size={32}
+            >
               <Icon name="trash" />
             </Button>
           </Right>

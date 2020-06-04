@@ -3,6 +3,7 @@ import { View, Text, Image, Button, Alert, StyleSheet } from 'react-native';
 import { observer, inject } from 'mobx-react';
 import ImagePicker from 'react-native-image-picker';
 import RNTextDetector from 'react-native-text-detector';
+import AsyncStorage from '@react-native-community/async-storage';
 
 class Gallery extends React.Component {
   state = {
@@ -36,6 +37,15 @@ class Gallery extends React.Component {
       console.log('visionResp');
 
       this.props.store.memoStore.addItem(visionResp);
+      const key = '@MyText';
+      // console.log('visionResp', visionResp);
+      try {
+        AsyncStorage.clear();
+        await AsyncStorage.setItem(key, JSON.stringify(this.props.store.memoStore));
+        Alert.alert('saved', 'Saved Successfully');
+      } catch (error) {
+        Alert.alert('Error', error + 'Error while saving');
+      }
     } catch (e) {
       console.warn(e);
     }

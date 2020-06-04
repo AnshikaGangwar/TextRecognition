@@ -13,6 +13,16 @@ const memoActions = self => ({
 
     self.memoArray.push(obj);
   },
+  loadItem(data) {
+    let name = data.name;
+    let content = data.content;
+    let obj = {
+      name,
+      content,
+    };
+
+    self.memoArray.push(obj);
+  },
   loaderTrue() {
     self.loader = true;
   },
